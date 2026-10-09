@@ -1,4 +1,4 @@
-# Architecture
+# Architecture de revisions-maths
 
 Ce document décrit comment le projet est construit : l'organisation des fichiers, le rôle de chaque module, le schéma commun à tous les chapitres, et la marche à suivre pour en ajouter un.
 
@@ -21,7 +21,7 @@ Règle de dépendance : `common.py` ne dépend que de Manim ; `algo.py` dépend 
 ## 2. Arborescence
 
 ```text
-.
+revisions-maths/
 ├── graphs_algos/            # tout le code source
 │   ├── common.py
 │   ├── algo.py

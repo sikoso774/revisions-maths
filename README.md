@@ -1,4 +1,6 @@
-# Graphs & Algos — la théorie des graphes en animations
+# revisions-maths
+
+Révisions de maths en vidéos : la théorie des graphes et les algorithmes classiques, en animations.
 
 Douze vidéos en français qui expliquent la théorie des graphes et les algorithmes classiques, du vocabulaire de base jusqu'à Dijkstra, Kruskal et Prim. Elles sont animées avec [Manim](https://www.manim.community/) (Community Edition) : fond noir, graphes en blanc, mots clés en couleur, formules en LaTeX.
 
@@ -54,8 +56,8 @@ Le seul paquet déclaré est `manim>=0.22.0` ; le reste en découle (versions fi
 ## Installation et rendu
 
 ```powershell
-git clone <url-du-dépôt>
-cd <dossier>
+git clone <url-du-dépôt> revisions-maths
+cd revisions-maths
 git switch graph_algo
 uv sync
 ```
@@ -73,7 +75,7 @@ La scène à passer en argument est indiquée dans la colonne « Vidéo » (nom 
 ## Organisation du dépôt
 
 ```text
-.
+revisions-maths/
 ├── graphs_algos/        # code source : une scène Manim par chapitre
 │   ├── common.py        # palette, scène de base, helpers de graphes
 │   ├── algo.py          # pseudo-code surligné, file / pile animées

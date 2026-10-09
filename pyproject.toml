@@ -1,0 +1,11 @@
+[project]
+name = "graphs-algos"
+version = "0.1.0"
+description = "Animations Manim en français : théorie des graphes et algorithmes classiques (BFS, DFS, Dijkstra, Kruskal, Prim)"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+dependencies = [
+    "manim>=0.22.0",
+]

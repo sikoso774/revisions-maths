@@ -1,0 +1,25 @@
+# --- Environnement Python ---
+.venv/
+__pycache__/
+*.pyc
+
+# --- Éditeur ---
+.vscode/
+.idea/
+
+# --- Fichiers intermédiaires de Manim / LaTeX (régénérables) ---
+media/images/
+media/Tex/
+media/texts/
+*.svg
+*.tex
+*.dvi
+*.xdv
+*.aux
+*.log
+
+# --- Vidéos : on ne conserve que les rendus 480p ---
+media/videos/*/*
+!media/videos/*/480p15/
+# ...sans leurs morceaux partiels
+media/videos/*/480p15/partial_movie_files/

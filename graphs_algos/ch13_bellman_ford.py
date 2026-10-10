@@ -15,7 +15,7 @@ POS_B = {
     "D": LEFT * 2.2 + UP * 0.9,
     "E": LEFT * 1.2 + DOWN * 1.0,
 }
-COTES_B = {"A": UP, "B": UP, "C": DOWN, "D": UP, "E": RIGHT}
+COTES_B = {"A": DOWN, "B": UP, "C": DOWN, "D": UP, "E": RIGHT}
 
 # Petit graphe avec un cycle négatif : B → C → D → B pèse −2 + 1 + 0 = −1
 SOMMETS_N = list("ABCD")
@@ -26,7 +26,7 @@ POS_N = {
     "C": LEFT * 1.8 + UP * 0.2,
     "D": LEFT * 4.0 + DOWN * 1.0,
 }
-COTES_N = {"A": UP, "B": UP, "C": RIGHT, "D": DOWN}
+COTES_N = {"A": DOWN, "B": UP, "C": RIGHT, "D": DOWN}
 
 LIGNES_BF = [
     (0, "d[v] ← ∞ pour tout v ; d[s] ← 0"),

@@ -11,12 +11,12 @@ flowchart LR
     manim["manim (bibliothèque)"] --> common
     common["common.py<br/>palette, SceneGraphes, graphes"] --> c16["ch01 … ch06<br/>notions de base"]
     common --> algo
-    algo["algo.py<br/>PanneauCode, Conteneur,<br/>graphes d'exemple"] --> c712["ch07 … ch12<br/>arbres et algorithmes"]
+    algo["algo.py<br/>PanneauCode, Conteneur,<br/>graphes d'exemple"] --> c714["ch07 … ch14<br/>arbres et algorithmes"]
     c16 --> media[("media/videos/<br/>*.mp4")]
-    c712 --> media
+    c714 --> media
 ```
 
-Règle de dépendance : `common.py` ne dépend que de Manim ; `algo.py` dépend de `common.py` ; les chapitres 1 à 6 n'importent que `common.py`, les chapitres 7 à 12 importent aussi `algo.py`. Aucun chapitre n'importe un autre chapitre.
+Règle de dépendance : `common.py` ne dépend que de Manim ; `algo.py` dépend de `common.py` ; les chapitres 1 à 6 n'importent que `common.py`, les chapitres 7 à 14 importent aussi `algo.py`. Aucun chapitre n'importe un autre chapitre.
 
 ## 2. Arborescence
 
@@ -28,7 +28,8 @@ revisions-maths/
 │   ├── ch01_definition.py       ch02_types.py          ch03_degre.py
 │   ├── ch04_chemins_cycles.py   ch05_connexite.py      ch06_representations.py
 │   ├── ch07_arbres.py           ch08_bfs.py            ch09_dfs.py
-│   └── ch10_dijkstra.py         ch11_kruskal.py        ch12_prim.py
+│   ├── ch10_dijkstra.py         ch11_kruskal.py        ch12_prim.py
+│   └── ch13_bellman_ford.py     ch14_pagerank.py
 ├── media/
 │   └── videos/<chapitre>/480p15/*.mp4   # seul élément de media/ versionné
 ├── pyproject.toml  uv.lock  .python-version   # environnement (uv)
@@ -55,8 +56,10 @@ Les scènes se lancent **depuis la racine** : `uv run manim -ql graphs_algos/ch0
 | `ch10_dijkstra.py` | `Dijkstra` | `algo` |
 | `ch11_kruskal.py` | `Kruskal` | `algo` |
 | `ch12_prim.py` | `Prim` | `algo` |
+| `ch13_bellman_ford.py` | `BellmanFord` | `algo` |
+| `ch14_pagerank.py` | `PageRank` | `algo` |
 
-Les modules `algo` ré-exportent `common` (`from common import *`), d'où l'unique `from algo import *` des chapitres 8 à 12.
+Les modules `algo` ré-exportent `common` (`from common import *`), d'où l'unique `from algo import *` des chapitres 8 à 14.
 
 ## 3. Le schéma d'un chapitre
 
@@ -150,6 +153,10 @@ Une **file** (horizontale) ou une **pile** (verticale) dont les cases entrent et
 Pour chaque algorithme, la méthode `executer()` **exécute réellement l'algorithme en Python** (ensembles de sommets marqués, file, distances, composantes) et émet les animations au fil du calcul. L'animation ne peut donc pas contredire l'algorithme : les distances de Dijkstra, l'ordre de visite du DFS ou les arêtes rejetées par Kruskal sont calculés, pas écrits à la main. Les numéros de ligne passés à `aller_a` correspondent aux listes `LIGNES_*` de chaque chapitre.
 
 Chapitre 10 : `executer()` est **générique** (une fonction `etiqueter` et un panneau de code facultatif) et sert à la fois pour le graphe d'étude et pour l'exemple Paris → Nice, qui n'affiche pas de pseudo-code.
+
+Chapitre 13 : `executer(g, sommets, arcs, source, etiqueter, code, detaille)` est lui aussi générique : il sert au graphe d'étude (détaillé) et au petit graphe à cycle négatif (mode rapide). Il calcule les passes de Bellman-Ford pour de vrai, garde l'historique des distances pour le tableau « une ligne par passe », et sa passe de contrôle détecte réellement le cycle.
+
+Chapitre 14 : les scores affichés viennent d'une vraie **itération de puissance** (`suivant(r)` applique la formule PR_{k+1}(p) = (1 − d)/N + d · Σ PR_k(q)/L(q) avec d = 0,85) ; le score d'une page est représenté par un halo vert dont le rayon suit la valeur, plutôt que par la taille du sommet, afin que les flèches restent attachées aux sommets.
 
 ## 6. Mise en page à l'écran
 

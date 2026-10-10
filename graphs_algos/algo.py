@@ -4,6 +4,7 @@ from common import *
 POLICE = "Consolas"
 CLES_CODE = {
     "tant que": VIOLET,
+    "répéter": VIOLET,
     "pour chaque": VIOLET,
     "sinon": VIOLET,
     "si ": VIOLET,
@@ -13,6 +14,7 @@ CLES_CODE = {
     "empiler": SOMMET,
     "dépiler": SOMMET,
     "cycle détecté": ROUGE,
+    "cycle négatif": ROUGE,
 }
 
 # Graphe commun aux parcours BFS / DFS (une arête de plus qu'un arbre : E–F ferme un cycle)

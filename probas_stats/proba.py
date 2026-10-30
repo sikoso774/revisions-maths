@@ -94,3 +94,18 @@ def urne(composition, centre, colonnes=6, pas=0.62, rayon=0.26, graine=3):
         boule.couleur_base = couleur
         boules.append(boule)
     return cadre, boules
+
+
+POLICE = "Consolas"
+
+
+def bloc_code(lignes, titre, cles=None, taille=22, interligne=0.2):
+    """Cadre de code : `lignes` = liste de (niveau d'indentation, texte) ; `cles` = mots colorés."""
+    entete = Text(titre, font=POLICE, font_size=taille - 2, color=GRIS)
+    textes = VGroup(*[Text(contenu, font=POLICE, font_size=taille, t2c=cles or {}) for _, contenu in lignes])
+    textes.arrange(DOWN, aligned_edge=LEFT, buff=interligne)
+    for (niveau, _), ligne in zip(lignes, textes):
+        ligne.shift(RIGHT * 0.4 * niveau)
+    corps = VGroup(entete, textes).arrange(DOWN, aligned_edge=LEFT, buff=0.3)
+    cadre = SurroundingRectangle(corps, color=GRIS, buff=0.25, corner_radius=0.1, stroke_width=2)
+    return VGroup(cadre, corps)

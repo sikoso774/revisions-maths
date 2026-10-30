@@ -2,18 +2,23 @@
 
 Révisions de maths en vidéos [Manim](https://www.manim.community/) (Community Edition), en français : fond noir, mots clés en couleur, formules en LaTeX.
 
-Cette branche est consacrée aux **probabilités et statistiques**. Elle est en cours de démarrage : **aucune vidéo n'est encore produite**. Elle repart du socle commun du projet (palette, scène de base, outils d'animation), sans les chapitres de graphes.
+Cette branche est consacrée aux **probabilités et statistiques**. Elle est en cours : les **5 premiers chapitres du bloc A** (modèle probabiliste) sont rendus en 480p. Elle repart du socle commun du projet (palette, scène de base, outils d'animation), sans les chapitres de graphes.
 
 > Les 14 vidéos sur la **théorie des graphes** (BFS, DFS, Dijkstra, Bellman-Ford, Kruskal, Prim, PageRank…) sont sur la branche [`graph_algo`](https://github.com/sikoso774/revisions-maths/tree/graph_algo), figées dans les tags `v1.0` et `v1.1`.
 
-## Contenu prévu
+## Chapitres
 
-Le plan des chapitres n'est pas encore arrêté. Les notes de cours servant de point de départ portent sur :
+Chaque chapitre : cartes de formules LaTeX, puis démonstration animée (dés, urnes, barres de probabilité, arbres), en français.
 
-- le dénombrement et le choix de la bonne formule ;
-- le modèle probabiliste et ses exercices ;
-- les systèmes complets d'événements ;
-- les règles de calcul des probabilités et les méthodes statistiques.
+| N° | Chapitre | Contenu | Vidéo |
+|---|---|---|---|
+| 1 | Expérience aléatoire et événements | univers Ω, événements, ∩, ∪, contraire, événements particuliers | `ch01_experience_evenements` |
+| 2 | Calculer une probabilité | cas favorables / possibles, contraire, addition, De Morgan, exercice 2.3.1 | `ch02_calculer_probabilite` |
+| 3 | Dénombrement : choisir la bonne formule | p-liste, arrangement, permutation, combinaison, tiercé et quinté, exercices 2.3.2 et 2.3.3 | `ch03_denombrement` |
+| 4 | Système complet d'événements | partition de Ω, ET / OU, « au moins » par le contraire, exercice 2.3.4 | `ch04_systeme_complet` |
+| 5 | Tirages dans une urne | tirage simultané, tirages avec remise, arbre, embryon de la loi binomiale, exercice 2.3.5 | `ch05_tirages_urne` |
+
+**À venir** : chapitre 6 (paradoxe des anniversaires, exercice 2.3.6) pour finir le bloc A, puis conditionnement et indépendance, variables aléatoires et lois usuelles, statistique inférentielle.
 
 ## Dépendances
 
@@ -24,7 +29,6 @@ Le plan des chapitres n'est pas encore arrêté. Les notes de cours servant de p
 | [Python](https://www.python.org/) ≥ 3.12 | exécution | `uv` peut l'installer pour toi (`.python-version` = 3.12) |
 | [uv](https://docs.astral.sh/uv/) | gestion de l'environnement et des dépendances | lit `pyproject.toml` et `uv.lock` |
 | Une distribution LaTeX ([MiKTeX](https://miktex.org/) ou TeX Live) | composition des formules (`Tex`) | doit fournir `latex` et `dvisvgm` |
-| Police **Consolas** | pseudo-code (`PanneauCode` dans `algo.py`) | présente sous Windows ; sur un autre système, Pango choisit une police de remplacement |
 
 FFmpeg n'est **pas** nécessaire : Manim 0.22 utilise PyAV pour encoder les vidéos.
 
@@ -50,11 +54,11 @@ git switch probas_stats
 uv sync
 ```
 
-Rendu d'une scène (depuis la racine du dépôt), une fois un chapitre écrit :
+Rendu d'une scène (depuis la racine du dépôt), par exemple `uv run manim -ql probas_stats/ch01_experience_evenements.py Chapitre01` :
 
 ```powershell
-uv run manim -pql graphs_algos/<fichier>.py <Scène>     # aperçu rapide, 480p15
-uv run manim -ql -s graphs_algos/<fichier>.py <Scène>   # image finale seulement
+uv run manim -pql probas_stats/<fichier>.py <Scène>     # aperçu rapide, 480p15
+uv run manim -ql -s probas_stats/<fichier>.py <Scène>   # image finale seulement
 ```
 
 Les vidéos sont écrites dans `media/videos/<chapitre>/<qualité>/`. Seuls les rendus 480p sont suivis par Git ; les fichiers intermédiaires (morceaux partiels, SVG, `.tex`) sont ignorés.
@@ -63,16 +67,18 @@ Les vidéos sont écrites dans `media/videos/<chapitre>/<qualité>/`. Seuls les 
 
 ```text
 revisions-maths/
-├── graphs_algos/        # socle commun (le nom du dossier sera à revoir pour cette branche)
-│   ├── common.py        # palette, scène de base, textes et formules, helpers
-│   └── algo.py          # pseudo-code surligné, file / pile animées
-├── ARCHITECTURE.md      # vide pour l'instant (à rédiger avec les premiers chapitres)
+├── probas_stats/
+│   ├── common.py        # palette, scène de base, textes et formules
+│   ├── proba.py         # dés, univers, urnes, diagramme de Venn du dé
+│   └── chNN_*.py        # un fichier par chapitre (une scène chacun)
+├── media/videos/        # vidéos 480p suivies par Git (une par chapitre)
+├── ARCHITECTURE.md      # vide pour l'instant (à rédiger quand le bloc A sera terminé)
 ├── LICENSE              # MIT
 ├── pyproject.toml       # dépendances (uv)
 └── uv.lock
 ```
 
-`media/` n'existe pas encore : il sera créé au premier rendu.
+Le dossier `media/` est créé au premier rendu ; seuls les `.mp4` en 480p y sont versionnés.
 
 ## Licence
 

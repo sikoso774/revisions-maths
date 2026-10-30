@@ -1,15 +1,13 @@
-"""Briques communes aux chapitres : palette, scène de base, helpers de graphes."""
+"""Briques communes aux chapitres : palette, scène de base, textes et formules."""
 from manim import *
 import numpy as np
 
 FOND = "#000000"
 BLANC = "#FFFFFF"
 TEXTE = BLANC
-NOEUD = BLANC  # sommets des graphes (étiquette en noir)
-LIEN = BLANC  # arêtes des graphes
-SOMMET = "#38BDF8"  # bleu : mot « sommet » dans les textes
-ARETE = "#94A3B8"  # gris : notes secondaires
-ACCENT = "#FBBF24"  # jaune : mise en avant, arêtes
+BLEU = "#38BDF8"  # bleu : événement B, mots clés secondaires
+GRIS = "#94A3B8"  # gris : notes secondaires
+ACCENT = "#FBBF24"  # jaune : mise en avant
 ROUGE = "#F87171"
 VERT = "#4ADE80"
 VIOLET = "#A78BFA"
@@ -39,10 +37,10 @@ def tex(contenu, taille=36, cles=None, couleur=TEXTE):
     return Tex(contenu, font_size=taille, color=couleur, tex_to_color_map=cles or {})
 
 
-CENTRE_DETAIL = np.array([0, -2.55, 0])
+CENTRE_DETAIL = np.array([0, -2.35, 0])
 
 
-class SceneGraphes(Scene):
+class SceneProbas(Scene):
     """Scène de base : fond, titre animé, légendes et sortie de chapitre cohérents."""
 
     def setup(self):
@@ -50,7 +48,10 @@ class SceneGraphes(Scene):
 
     def intro(self, contenu, numero=None):
         """Titre centré en grand, qui dézoome et monte en haut ; un trait jaune se déploie dessous."""
-        titre = Text(contenu, font_size=44, weight=BOLD, color=TEXTE).to_edge(UP, buff=0.4)
+        titre = Text(contenu, font_size=44, weight=BOLD, color=TEXTE)
+        if titre.width > 12.5:  # titre long : on le réduit pour qu'il reste dans le cadre
+            titre.scale_to_fit_width(12.5)
+        titre.to_edge(UP, buff=0.4)
         facteur = min(2.0, 11 / titre.width)  # grand, mais toujours dans le cadre
         grand = titre.copy().scale(facteur).move_to(ORIGIN)
         etiquette = None
@@ -95,8 +96,8 @@ class SceneGraphes(Scene):
         return nouveau
 
     def detail(self, ancien, contenu, cles=None):
-        """Phrase explicative au-dessus du tableau ; remplace la précédente."""
-        nouveau = texte(contenu, 28, cles)
+        """Phrase explicative sous la scène ; remplace la précédente (texte ou objet Tex déjà construit)."""
+        nouveau = contenu if isinstance(contenu, Mobject) else texte(contenu, 28, cles)
         if nouveau.width > 12.8:
             nouveau.scale_to_fit_width(12.8)
         nouveau.move_to(CENTRE_DETAIL)
@@ -149,6 +150,11 @@ class SceneGraphes(Scene):
         )
         self.remove(theorie)
 
+    def vider(self, titre, duree=1.0):
+        """Efface tout sauf le titre et son trait (passage d'une démonstration à la suivante)."""
+        autres = [m for m in self.mobjects if m is not titre and m is not self.trait_titre]
+        self.play(*[FadeOut(m) for m in autres], run_time=duree)
+
     def fin(self, pause=1.5):
         """Fin de chapitre : courte pause, puis tout s'estompe."""
         if config.save_last_frame:  # mode -s : garder l'image finale lisible
@@ -157,68 +163,3 @@ class SceneGraphes(Scene):
         self.play(FadeOut(Group(*self.mobjects)), run_time=1.0)
         self.wait(0.3)
 
-
-def parties(g):
-    """Sommets et arêtes d'un graphe, comme objets indépendants (pour fondus et transformations)."""
-    return VGroup(*g.vertices.values(), *g.edges.values())
-
-
-def apparition(g):
-    """Les sommets jaillissent un à un, puis les arêtes se tracent."""
-    return Succession(
-        LaggedStart(*[GrowFromCenter(v) for v in g.vertices.values()], lag_ratio=0.15),
-        LaggedStart(*[Create(e) for e in g.edges.values()], lag_ratio=0.15),
-    )
-
-
-def positions_cercle(sommets, rayon=2.0, centre=ORIGIN, depart=90):
-    """Place les sommets régulièrement sur un cercle (premier sommet en haut)."""
-    n = len(sommets)
-    return {
-        v: centre + rayon * np.array([
-            np.cos(np.radians(depart - 360 * i / n)),
-            np.sin(np.radians(depart - 360 * i / n)),
-            0,
-        ])
-        for i, v in enumerate(sommets)
-    }
-
-
-def creer_graphe(sommets, aretes, positions, orientee=False, rayon=0.3, couleur=NOEUD):
-    """Graphe avec sommets étiquetés (Text, donc sans LaTeX)."""
-    labels = {v: Text(str(v), font_size=30, color=FOND, weight=BOLD) for v in sommets}
-    config_arete = {"stroke_color": LIEN, "stroke_width": 5}
-    if orientee:
-        config_arete["tip_config"] = {"tip_length": 0.25, "tip_width": 0.25}
-    classe = DiGraph if orientee else Graph
-    g = classe(
-        sommets,
-        aretes,
-        layout=positions,
-        labels=labels,
-        vertex_type=LabeledDot,
-        vertex_config={"fill_color": couleur, "radius": rayon},
-        edge_config=config_arete,
-    )
-    for sommet in g.vertices.values():
-        sommet.set_z_index(2)  # les sommets restent au-dessus des arêtes
-    return g
-
-
-def colorier(g, v, couleur):
-    """Anime le remplissage du sommet v sans toucher à la couleur de son étiquette."""
-    return g.vertices[v].animate.set_fill(couleur, family=False)
-
-
-def arete(g, u, v):
-    """Arête u-v quel que soit l'ordre dans lequel elle a été déclarée."""
-    return g.edges[(u, v)] if (u, v) in g.edges else g.edges[(v, u)]
-
-
-def etiquette_poids(g, u, v, valeur):
-    """Poids affiché au milieu de l'arête, sur un fond qui masque le trait."""
-    contenu = Text(str(valeur), font_size=26, color=ACCENT, weight=BOLD)
-    fond = BackgroundRectangle(contenu, color=FOND, fill_opacity=1, buff=0.08)
-    groupe = VGroup(fond, contenu).move_to(arete(g, u, v).get_center())
-    groupe.set_z_index(3)
-    return groupe

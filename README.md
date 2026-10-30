@@ -2,7 +2,7 @@
 
 Révisions de maths en vidéos [Manim](https://www.manim.community/) (Community Edition), en français : fond noir, mots clés en couleur, formules en LaTeX.
 
-Cette branche est consacrée aux **probabilités et statistiques**. Elle est en cours : le **bloc A** (modèle probabiliste, 6 chapitres) est terminé et rendu en 480p, figé dans le tag `v2.0`. Elle repart du socle commun du projet (palette, scène de base, outils d'animation), sans les chapitres de graphes.
+Cette branche est consacrée aux **probabilités et statistiques**. Elle est en cours : les **blocs A** (modèle probabiliste, chapitres 1 à 6) et **B** (conditionnement, chapitres 7 à 9) sont terminés et rendus en 480p, figés dans les tags `v2.0` (bloc A) et `v2.1` (blocs A et B). Elle repart du socle commun du projet (palette, scène de base, outils d'animation), sans les chapitres de graphes.
 
 > Les 14 vidéos sur la **théorie des graphes** (BFS, DFS, Dijkstra, Bellman-Ford, Kruskal, Prim, PageRank…) sont sur la branche [`graph_algo`](https://github.com/sikoso774/revisions-maths/tree/graph_algo), figées dans les tags `v1.0` et `v1.1`.
 
@@ -18,8 +18,11 @@ Chaque chapitre : cartes de formules LaTeX, puis démonstration animée (dés, u
 | 4 | Système complet d'événements | partition de Ω, ET / OU, « au moins » par le contraire, exercice 2.3.4 | `ch04_systeme_complet` |
 | 5 | Tirages dans une urne | tirage simultané, tirages avec remise, arbre, embryon de la loi binomiale, exercice 2.3.5 | `ch05_tirages_urne` |
 | 6 | Le paradoxe des anniversaires | contraire, formule P(N), fonction R et courbe, cas de Martin, paires, exercice 2.3.6 | `ch06_anniversaires` |
+| 7 | Probabilité conditionnelle | P(A∣B) = P(A∩B)/P(B), l'univers qui se restreint, exercice 2.4.1 | `ch07_probabilite_conditionnelle` |
+| 8 | Indépendance | deux dés, P(A∣B) = P(A), indépendants ≠ incompatibles, P(A∣B) ≠ P(B∣A) | `ch08_independance` |
+| 9 | Probabilités totales et Bayes | partition, formules de Bayes, QCM (exercice 2.4.2) et assurance (exercice 2.4.3) | `ch09_totales_bayes` |
 
-**À venir** : conditionnement, Bayes et indépendance, variables aléatoires et lois usuelles, statistique inférentielle.
+**À venir** : variables aléatoires (loi, fonction de répartition, densité, espérance et variance), lois usuelles, convergences, statistique inférentielle.
 
 ## Dépendances
 

@@ -50,7 +50,10 @@ class SceneGraphes(Scene):
 
     def intro(self, contenu, numero=None):
         """Titre centré en grand, qui dézoome et monte en haut ; un trait jaune se déploie dessous."""
-        titre = Text(contenu, font_size=44, weight=BOLD, color=TEXTE).to_edge(UP, buff=0.4)
+        titre = Text(contenu, font_size=44, weight=BOLD, color=TEXTE)
+        if titre.width > 12.5:  # titre long : on le réduit pour qu'il reste dans le cadre
+            titre.scale_to_fit_width(12.5)
+        titre.to_edge(UP, buff=0.4)
         facteur = min(2.0, 11 / titre.width)  # grand, mais toujours dans le cadre
         grand = titre.copy().scale(facteur).move_to(ORIGIN)
         etiquette = None
@@ -96,7 +99,7 @@ class SceneGraphes(Scene):
 
     def detail(self, ancien, contenu, cles=None):
         """Phrase explicative au-dessus du tableau ; remplace la précédente."""
-        nouveau = texte(contenu, 28, cles)
+        nouveau = contenu if isinstance(contenu, Mobject) else texte(contenu, 28, cles)
         if nouveau.width > 12.8:
             nouveau.scale_to_fit_width(12.8)
         nouveau.move_to(CENTRE_DETAIL)
@@ -148,6 +151,11 @@ class SceneGraphes(Scene):
             rate_func=smooth,
         )
         self.remove(theorie)
+
+    def vider(self, titre, duree=1.0):
+        """Efface tout sauf le titre et son trait (passage d'une démonstration à la suivante)."""
+        autres = [m for m in self.mobjects if m is not titre and m is not self.trait_titre]
+        self.play(*[FadeOut(m) for m in autres], run_time=duree)
 
     def fin(self, pause=1.5):
         """Fin de chapitre : courte pause, puis tout s'estompe."""

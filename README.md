@@ -2,11 +2,11 @@
 
 Révisions de maths en vidéos : la théorie des graphes et les algorithmes classiques, en animations.
 
-Quatorze vidéos en français qui expliquent la théorie des graphes et les algorithmes classiques, du vocabulaire de base jusqu'à Dijkstra, Bellman-Ford, Kruskal, Prim et PageRank. Elles sont animées avec [Manim](https://www.manim.community/) (Community Edition) : fond noir, graphes en blanc, mots clés en couleur, formules en LaTeX.
+Dix-sept vidéos en français qui expliquent la théorie des graphes et les algorithmes classiques, du vocabulaire de base jusqu'à Dijkstra, Bellman-Ford, Kruskal, Prim et PageRank, puis des compléments issus des feuilles de TD (modélisation, ordonnancement). Elles sont animées avec [Manim](https://www.manim.community/) (Community Edition) : fond noir, graphes en blanc, mots clés en couleur, formules en LaTeX.
 
 Chaque chapitre suit le même schéma : un titre centré qui dézoome, les **formules avec leurs explications**, un dézoom sur un **exemple concret**, puis des **démonstrations pas à pas**. Pour les algorithmes, le pseudo-code s'exécute ligne par ligne à l'écran, avec la file, la pile ou les distances qui évoluent en direct.
 
-> Les rendus 480p sont versionnés dans `media/videos/` (≈ 58 Mo). Les fichiers intermédiaires de Manim (morceaux de vidéo, SVG, `.tex`) sont ignorés par Git.
+> Les rendus 480p sont versionnés dans `media/videos/` (≈ 94 Mo). Les fichiers intermédiaires de Manim (morceaux de vidéo, SVG, `.tex`) sont ignorés par Git.
 
 ## Chapitres
 
@@ -26,7 +26,11 @@ Chaque chapitre suit le même schéma : un titre centré qui dézoome, les **for
 | 12 | Arbre couvrant minimal : Prim | arêtes de la coupe, comparaison Kruskal / Prim | [Prim.mp4](media/videos/ch12_prim/480p15/Prim.mp4) |
 | 13 | L'algorithme de Bellman-Ford | poids négatifs, passes sur tous les arcs, contre-exemple de Dijkstra, cycle négatif | [BellmanFord.mp4](media/videos/ch13_bellman_ford/480p15/BellmanFord.mp4) |
 | 14 | PageRank : classer les pages web | surfeur aléatoire, formule, matrice de transition, itérations jusqu'à convergence | [PageRank.mp4](media/videos/ch14_pagerank/480p15/PageRank.mp4) |
+| 17 | Modéliser en plus court chemin | sommet fictif, poids, constante sur les arcs finaux, foires de Guérande (Dijkstra), chalets de Rémi (montée et descente) | [Modelisation.mp4](media/videos/ch17_modelisation/480p15/Modelisation.mp4) |
+| 18 | Ordonnancement et chemin critique | graphe potentiel-tâches, dates au plus tôt, plus long chemin, chemin critique | [Ordonnancement.mp4](media/videos/ch18_ordonnancement/480p15/Ordonnancement.mp4) |
+| 19 | Délais maximaux et plus long chemin | contrainte de temps = arc, arcs négatifs, Bellman-Ford avec un maximum, projet infaisable | [DelaisMaximaux.mp4](media/videos/ch19_delais_maximaux/480p15/DelaisMaximaux.mp4) |
 
+Les chapitres 15 (forêts et sommets atteignables), 16 (circuits et ordre topologique) et 20 (choisir son algorithme) sont prévus ; leur numérotation est réservée.
 ## Dépendances
 
 ### Outils à installer sur la machine
@@ -70,7 +74,7 @@ uv run manim -pqh graphs_algos/ch08_bfs.py ParcoursLargeur     # qualité finale
 uv run manim -ql -s graphs_algos/ch08_bfs.py ParcoursLargeur   # image finale seulement
 ```
 
-La scène à passer en argument est indiquée dans la colonne « Vidéo » (nom du fichier `.mp4`) ; l'architecture détaille la correspondance fichier ↔ scène. Les vidéos sont écrites dans `media/videos/<chapitre>/<qualité>/`. Les chapitres 5 à 14 prennent plusieurs minutes à rendre.
+La scène à passer en argument est indiquée dans la colonne « Vidéo » (nom du fichier `.mp4`) ; l'architecture détaille la correspondance fichier ↔ scène. Les vidéos sont écrites dans `media/videos/<chapitre>/<qualité>/`. Les chapitres 5 à 19 prennent plusieurs minutes à rendre.
 
 ## Organisation du dépôt
 
@@ -79,7 +83,8 @@ revisions-maths/
 ├── graphs_algos/        # code source : une scène Manim par chapitre
 │   ├── common.py        # palette, scène de base, helpers de graphes
 │   ├── algo.py          # pseudo-code surligné, file / pile animées
-│   └── ch01_…ch14_*.py  # les 14 chapitres
+│   ├── ordonnancement.py # données communes aux chapitres 18 et 19 (TD2, exercice 7)
+│   └── ch01_…ch19_*.py  # un fichier par chapitre (15, 16 et 20 à venir)
 ├── media/videos/        # vidéos 480p versionnées (le reste de media/ est ignoré)
 ├── ARCHITECTURE.md      # conception détaillée du code
 ├── LICENSE              # MIT

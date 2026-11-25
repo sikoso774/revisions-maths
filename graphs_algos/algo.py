@@ -173,3 +173,24 @@ def boite_arete(u, v, w, couleur=ARETE, cote=0.64):
     nom = Text(f"{u}{v}", font_size=19, weight=BOLD, color=TEXTE).move_to(cadre.get_center() + UP * 0.12)
     poids = Text(str(w), font_size=18, weight=BOLD, color=ACCENT).move_to(cadre.get_center() + DOWN * 0.16)
     return VGroup(cadre, nom, poids)
+
+
+def arc_entre(a, b, angle=0.0, couleur=LIEN, rayon=0.3, epaisseur=4):
+    """Arc (droit si angle = 0) entre deux points, raccourci aux bords des sommets, avec une pointe."""
+    direction = (b - a) / np.linalg.norm(b - a)
+    p, q = a + direction * rayon, b - direction * rayon
+    if abs(angle) < 1e-6:
+        arc = Line(p, q, stroke_color=couleur, stroke_width=epaisseur)
+    else:
+        arc = ArcBetweenPoints(p, q, angle=angle, stroke_color=couleur, stroke_width=epaisseur)
+    arc.add_tip(tip_length=0.2, tip_width=0.2)
+    return arc
+
+
+def etiquette_sur(arc, valeur, taille=22, couleur=ACCENT):
+    """Valeur posée au milieu d'un arc, sur un fond noir."""
+    t = Text(str(valeur), font_size=taille, color=couleur, weight=BOLD)
+    fond = BackgroundRectangle(t, color=FOND, fill_opacity=1, buff=0.05)
+    groupe = VGroup(fond, t).move_to(arc.point_from_proportion(0.5))
+    groupe.set_z_index(3)
+    return groupe

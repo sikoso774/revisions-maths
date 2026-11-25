@@ -11,7 +11,7 @@ flowchart LR
     manim["manim (bibliothèque)"] --> common
     common["common.py<br/>palette, SceneGraphes, graphes"] --> c16["ch01 … ch06<br/>notions de base"]
     common --> algo
-    algo["algo.py<br/>PanneauCode, Conteneur,<br/>graphes d'exemple, arcs"] --> c714["ch07 … ch17, ch20<br/>arbres, algorithmes, compléments"]
+    algo["algo.py<br/>PanneauCode, Conteneur,<br/>graphes d'exemple, arcs"] --> c714["ch07 … ch17, ch20, ch21<br/>arbres, algorithmes, compléments"]
     algo --> ordo["ordonnancement.py<br/>données du TD2, ex. 7"]
     ordo --> c1819["ch18, ch19<br/>ordonnancement"]
     c16 --> media[("media/videos/<br/>*.mp4")]
@@ -19,7 +19,7 @@ flowchart LR
     c1819 --> media
 ```
 
-Règle de dépendance : `common.py` ne dépend que de Manim ; `algo.py` dépend de `common.py` ; les chapitres 1 à 6 n'importent que `common.py`, les chapitres 7 à 17 et 20 importent aussi `algo.py`, et les chapitres 18 et 19 importent `ordonnancement.py` (qui dépend de `algo.py`). Aucun chapitre n'importe un autre chapitre.
+Règle de dépendance : `common.py` ne dépend que de Manim ; `algo.py` dépend de `common.py` ; les chapitres 1 à 6 n'importent que `common.py`, les chapitres 7 à 17, 20 et 21 importent aussi `algo.py`, et les chapitres 18 et 19 importent `ordonnancement.py` (qui dépend de `algo.py`). Aucun chapitre n'importe un autre chapitre.
 
 ## 2. Arborescence
 
@@ -36,6 +36,7 @@ revisions-maths/
 │   ├── ch16_circuits_topologique.py                    ch17_modelisation.py
 │   ├── ordonnancement.py        # données et helpers communs aux chapitres 18 et 19
 │   └── ch18_ordonnancement.py   ch19_delais_maximaux.py    ch20_choisir_algorithme.py
+│   ├── ch21_bellman_tableau.py
 ├── media/
 │   └── videos/<chapitre>/480p15/*.mp4   # seul élément de media/ versionné
 ├── pyproject.toml  uv.lock  .python-version   # environnement (uv)
@@ -70,8 +71,9 @@ Les scènes se lancent **depuis la racine** : `uv run manim -ql graphs_algos/ch0
 | `ch18_ordonnancement.py` | `Ordonnancement` | `ordonnancement` |
 | `ch19_delais_maximaux.py` | `DelaisMaximaux` | `ordonnancement` |
 | `ch20_choisir_algorithme.py` | `ChoisirAlgorithme` | `algo` |
+| `ch21_bellman_tableau.py` | `BellmanTableau` | `algo` |
 
-Les modules `algo` ré-exportent `common` (`from common import *`), d'où l'unique `from algo import *` des chapitres 8 à 17 et 20. `ordonnancement` ré-exporte `algo`.
+Les modules `algo` ré-exportent `common` (`from common import *`), d'où l'unique `from algo import *` des chapitres 8 à 17, 20 et 21. `ordonnancement` ré-exporte `algo`.
 
 ## 3. Le schéma d'un chapitre
 

@@ -2,11 +2,11 @@
 
 Révisions de maths en vidéos : la théorie des graphes et les algorithmes classiques, en animations.
 
-Vingt vidéos en français qui expliquent la théorie des graphes et les algorithmes classiques, du vocabulaire de base jusqu'à Dijkstra, Bellman-Ford, Kruskal, Prim et PageRank, puis des compléments issus des feuilles de TD (atteignabilité, forêts, circuits, modélisation, ordonnancement), et une synthèse pour choisir son algorithme. Elles sont animées avec [Manim](https://www.manim.community/) (Community Edition) : fond noir, graphes en blanc, mots clés en couleur, formules en LaTeX.
+Vingt et une vidéos en français qui expliquent la théorie des graphes et les algorithmes classiques, du vocabulaire de base jusqu'à Dijkstra, Bellman-Ford, Kruskal, Prim et PageRank, puis des compléments issus des feuilles de TD (atteignabilité, forêts, circuits, modélisation, ordonnancement), une synthèse pour choisir son algorithme, et le corrigé en tableau d'un exercice de TD. Elles sont animées avec [Manim](https://www.manim.community/) (Community Edition) : fond noir, graphes en blanc, mots clés en couleur, formules en LaTeX.
 
 Chaque chapitre suit le même schéma : un titre centré qui dézoome, les **formules avec leurs explications**, un dézoom sur un **exemple concret**, puis des **démonstrations pas à pas**. Pour les algorithmes, le pseudo-code s'exécute ligne par ligne à l'écran, avec la file, la pile ou les distances qui évoluent en direct.
 
-> Les rendus 480p sont versionnés dans `media/videos/` (≈ 109 Mo). Les fichiers intermédiaires de Manim (morceaux de vidéo, SVG, `.tex`) sont ignorés par Git.
+> Les rendus 480p sont versionnés dans `media/videos/` (≈ 114 Mo). Les fichiers intermédiaires de Manim (morceaux de vidéo, SVG, `.tex`) sont ignorés par Git.
 
 ## Chapitres
 
@@ -33,6 +33,7 @@ Chaque chapitre suit le même schéma : un titre centré qui dézoome, les **for
 | 19 | Délais maximaux et plus long chemin | contrainte de temps = arc, arcs négatifs, Bellman-Ford avec un maximum, projet infaisable | [DelaisMaximaux.mp4](media/videos/ch19_delais_maximaux/480p15/DelaisMaximaux.mp4) |
 
 | 20 | Quel algorithme choisir ? | tableaux comparatifs (conditions et complexités), ordres de grandeur, algorithme pour chaque exercice des TD | [ChoisirAlgorithme.mp4](media/videos/ch20_choisir_algorithme/480p15/ChoisirAlgorithme.mp4) |
+| 21 | Bellman-Ford en tableau | méthode du tableau π^k / pred, corrigé du TD2 (exercice 3), variante avec circuit négatif détecté | [BellmanTableau.mp4](media/videos/ch21_bellman_tableau/480p15/BellmanTableau.mp4) |
 ## Dépendances
 
 ### Outils à installer sur la machine
@@ -86,7 +87,7 @@ revisions-maths/
 │   ├── common.py        # palette, scène de base, helpers de graphes
 │   ├── algo.py          # pseudo-code surligné, file / pile animées
 │   ├── ordonnancement.py # données communes aux chapitres 18 et 19 (TD2, exercice 7)
-│   └── ch01_…ch19_*.py  # un fichier par chapitre (chapitres 1 à 20)
+│   └── ch01_…ch19_*.py  # un fichier par chapitre (chapitres 1 à 21)
 ├── media/videos/        # vidéos 480p versionnées (le reste de media/ est ignoré)
 ├── ARCHITECTURE.md      # conception détaillée du code
 ├── LICENSE              # MIT

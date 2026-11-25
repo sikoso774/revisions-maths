@@ -11,7 +11,7 @@ flowchart LR
     manim["manim (bibliothèque)"] --> common
     common["common.py<br/>palette, SceneGraphes, graphes"] --> c16["ch01 … ch06<br/>notions de base"]
     common --> algo
-    algo["algo.py<br/>PanneauCode, Conteneur,<br/>graphes d'exemple, arcs"] --> c714["ch07 … ch14, ch17<br/>arbres, algorithmes, modélisation"]
+    algo["algo.py<br/>PanneauCode, Conteneur,<br/>graphes d'exemple, arcs"] --> c714["ch07 … ch17<br/>arbres, algorithmes, compléments"]
     algo --> ordo["ordonnancement.py<br/>données du TD2, ex. 7"]
     ordo --> c1819["ch18, ch19<br/>ordonnancement"]
     c16 --> media[("media/videos/<br/>*.mp4")]
@@ -19,7 +19,7 @@ flowchart LR
     c1819 --> media
 ```
 
-Règle de dépendance : `common.py` ne dépend que de Manim ; `algo.py` dépend de `common.py` ; les chapitres 1 à 6 n'importent que `common.py`, les chapitres 7 à 14 et 17 importent aussi `algo.py`, et les chapitres 18 et 19 importent `ordonnancement.py` (qui dépend de `algo.py`). Aucun chapitre n'importe un autre chapitre.
+Règle de dépendance : `common.py` ne dépend que de Manim ; `algo.py` dépend de `common.py` ; les chapitres 1 à 6 n'importent que `common.py`, les chapitres 7 à 17 importent aussi `algo.py`, et les chapitres 18 et 19 importent `ordonnancement.py` (qui dépend de `algo.py`). Aucun chapitre n'importe un autre chapitre.
 
 ## 2. Arborescence
 
@@ -32,7 +32,8 @@ revisions-maths/
 │   ├── ch04_chemins_cycles.py   ch05_connexite.py      ch06_representations.py
 │   ├── ch07_arbres.py           ch08_bfs.py            ch09_dfs.py
 │   ├── ch10_dijkstra.py         ch11_kruskal.py        ch12_prim.py
-│   ├── ch13_bellman_ford.py     ch14_pagerank.py       ch17_modelisation.py
+│   ├── ch13_bellman_ford.py     ch14_pagerank.py       ch15_atteignables_forets.py
+│   ├── ch16_circuits_topologique.py                    ch17_modelisation.py
 │   ├── ordonnancement.py        # données et helpers communs aux chapitres 18 et 19
 │   └── ch18_ordonnancement.py   ch19_delais_maximaux.py
 ├── media/
@@ -63,11 +64,13 @@ Les scènes se lancent **depuis la racine** : `uv run manim -ql graphs_algos/ch0
 | `ch12_prim.py` | `Prim` | `algo` |
 | `ch13_bellman_ford.py` | `BellmanFord` | `algo` |
 | `ch14_pagerank.py` | `PageRank` | `algo` |
+| `ch15_atteignables_forets.py` | `AtteignablesForets` | `algo` |
+| `ch16_circuits_topologique.py` | `CircuitsTopologique` | `algo` |
 | `ch17_modelisation.py` | `Modelisation` | `algo` |
 | `ch18_ordonnancement.py` | `Ordonnancement` | `ordonnancement` |
 | `ch19_delais_maximaux.py` | `DelaisMaximaux` | `ordonnancement` |
 
-Les modules `algo` ré-exportent `common` (`from common import *`), d'où l'unique `from algo import *` des chapitres 8 à 14 et 17. `ordonnancement` ré-exporte `algo`.
+Les modules `algo` ré-exportent `common` (`from common import *`), d'où l'unique `from algo import *` des chapitres 8 à 17. `ordonnancement` ré-exporte `algo`.
 
 ## 3. Le schéma d'un chapitre
 
